@@ -15,7 +15,7 @@ After gathering the necessary information, the assistant generates a tailored se
 
 *   **Programming Language**: Python 3.10+
 *   **Frontend Interface**: [Streamlit](https://streamlit.io/)
-*   **Large Language Model**: Google Gemini (`gemini-1.5-pro`)
+*   **Large Language Model**: Google Gemini (`gemini-2.5-flash`)
 *   **Core Libraries**:
     *   `streamlit`: For building the interactive web UI.
     *   `google-generativeai`: The official Google client library for the Gemini API.
