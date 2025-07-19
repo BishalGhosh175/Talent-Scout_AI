@@ -1,10 +1,10 @@
-# app.py - The Final, Polished, and Visually Correct Version
+# app.py - The Final CODE
 
 import streamlit as st
 import google.generativeai as genai
 import json
 import re
-import fitz  # PyMuPDF
+import fitz 
 
 # --- Configuration and Initialization ---
 
