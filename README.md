@@ -33,8 +33,8 @@ Follow these steps to set up and run the application locally.
 
 **2. Clone the Repository:**
 ```bash
-git clone <your-repository-url>
-cd <repository-directory>
+git clone https://github.com/BishalGhosh175/Talent-Scout_AI.git
+cd talent-scout-chatbot
 ```
 
 **3. Create a Virtual Environment (Recommended):**
