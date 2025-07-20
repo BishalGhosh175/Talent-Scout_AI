@@ -54,13 +54,21 @@ Install all the required libraries from the `requirements.txt` file.
 ```bash
 pip install -r requirements.txt
 ```
-**5. Set Up API Key:**
-The application uses Streamlit's secrets management to handle the API key securely.
-In the project directory, you will find a folder named .streamlit.
-Inside this folder, there is secrets.toml.
-If you don't have gemini api key, go to https://aistudio.google.com/ to create free api key.
-Open the secrets.toml file and replace the placeholder with your actual API key, as shown below:
-GEMINI_API_KEY="YOUR_ACTUAL_API_KEY_HERE"
+### 5. Set Up API Key
+
+This application requires a Google Gemini API key to function.
+
+*   **Get your API Key**: If you don't already have one, create a free key by visiting the **[Google AI Studio](https://aistudio.google.com/)**.
+
+*   **Add the Key to the Project**:
+    1.  In the project directory, locate the `.streamlit` folder.
+    2.  Inside this folder, open the `secrets.toml` file.
+    3.  Add your API key to the file. It should look exactly like this, with your key replacing the placeholder:
+
+    ```toml
+    # .streamlit/secrets.toml
+    GEMINI_API_KEY="YOUR_ACTUAL_API_KEY_HERE"
+    ```
 ---
 
 **6. Run the Application:**
