@@ -57,19 +57,34 @@ def load_css():
             padding: 0.75rem 0; font-weight: 600;
         }
         .stButton>button:hover { border-color: #004182; color: white; background-color: #0A66C2; }
+
+        /* FIX: Ensure disabled text area is readable */
+        textarea[disabled] {
+            background-color: #F0F2F6 !important; /* A light, neutral background */
+            color: #31333F !important; /* Dark, readable text */
+            border: 1px solid #DCDCDC !important;
+        }
     </style>
     """, unsafe_allow_html=True)
 
 # --- App Constants & State ---
 JOB_ROLES = [ "AI/ML Intern", "Data Scientist", "Software Engineer (Backend)", "Software Engineer (Frontend)", "DevOps Engineer", "Full-Stack Developer" ]
-if "stage" not in st.session_state: st.session_state.stage = "GREETING"
-if "messages" not in st.session_state: st.session_state.messages = []
-if "candidate_data" not in st.session_state: st.session_state.candidate_data = {}
-if "manual_entry_fields" not in st.session_state:
-    st.session_state.manual_entry_fields = [ "Full Name", "Email Address", "Years of Experience", "Current Location", "Tech Stack" ]
-if "current_field_index" not in st.session_state: st.session_state.current_field_index = 0
-if "tech_questions" not in st.session_state: st.session_state.tech_questions = []
-if "current_question_index" not in st.session_state: st.session_state.current_question_index = 0
+
+# Define the initial state in a dictionary
+initial_state = {
+    "stage": "GREETING",
+    "messages": [],
+    "candidate_data": {},
+    "manual_entry_fields": [ "Full Name", "Email Address", "Years of Experience", "Current Location", "Tech Stack" ],
+    "current_field_index": 0,
+    "tech_questions": [],
+    "current_question_index": 0
+}
+
+# Initialize session state using a loop
+for key, value in initial_state.items():
+    if key not in st.session_state:
+        st.session_state[key] = value
 
 # --- Helper Functions ---
 def display_chat():
@@ -179,4 +194,9 @@ if st.session_state.stage == "CONCLUDED":
     if not st.session_state.messages or "That concludes the technical screening" not in st.session_state.messages[-1].get('content', ''):
         add_message("assistant", "That concludes the technical screening. Thank you for your time! A recruiter will review your information and be in touch soon.")
         st.balloons()
-    st.text_area("The screening is complete. You may now close the window.", disabled=True, height=150)
+    st.text_area(
+        "Screening complete",
+        value="The screening is complete. You may now close the window.",
+        disabled=True,
+        label_visibility="collapsed"
+    )
