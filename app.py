@@ -11,7 +11,7 @@ import fitz
 st.set_page_config(page_title="TalentScout Assistant", page_icon="🤖", layout="centered")
 
 try:
-    genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
+    genai.configure(api_key="AIzaSyBr1urJ1Nwlj2PdN6PF904Kcn0QXZ2ETZg")
 except (KeyError, AttributeError):
     st.error("🚨 **Error:** Gemini API Key not found. Please create a `.streamlit/secrets.toml` file.", icon="🔑")
     st.stop()
