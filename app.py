@@ -1,17 +1,17 @@
-# app.py - The Final CODE
+# app.py - The Final, Polished, and Visually Correct Version
 
 import streamlit as st
 import google.generativeai as genai
 import json
 import re
-import fitz 
+import fitz  # PyMuPDF
 
 # --- Configuration and Initialization ---
 
 st.set_page_config(page_title="TalentScout Assistant", page_icon="🤖", layout="centered")
 
 try:
-    genai.configure(api_key="AIzaSyBr1urJ1Nwlj2PdN6PF904Kcn0QXZ2ETZg")
+    genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
 except (KeyError, AttributeError):
     st.error("🚨 **Error:** Gemini API Key not found. Please create a `.streamlit/secrets.toml` file.", icon="🔑")
     st.stop()
@@ -52,39 +52,24 @@ def load_css():
         }
         
         .stButton>button {
-            width: 100%; border-radius: 20px; border: 1px solid #0A66C2;
+            width: 310px; border-radius: 20px; border: 1px solid #0A66C2;
             color: #0A66C2; background-color: white; transition: all 0.2s ease;
             padding: 0.75rem 0; font-weight: 600;
         }
         .stButton>button:hover { border-color: #004182; color: white; background-color: #0A66C2; }
-
-        /* FIX: Ensure disabled text area is readable */
-        textarea[disabled] {
-            background-color: #F0F2F6 !important; /* A light, neutral background */
-            color: #31333F !important; /* Dark, readable text */
-            border: 1px solid #DCDCDC !important;
-        }
     </style>
     """, unsafe_allow_html=True)
 
 # --- App Constants & State ---
 JOB_ROLES = [ "AI/ML Intern", "Data Scientist", "Software Engineer (Backend)", "Software Engineer (Frontend)", "DevOps Engineer", "Full-Stack Developer" ]
-
-# Define the initial state in a dictionary
-initial_state = {
-    "stage": "GREETING",
-    "messages": [],
-    "candidate_data": {},
-    "manual_entry_fields": [ "Full Name", "Email Address", "Years of Experience", "Current Location", "Tech Stack" ],
-    "current_field_index": 0,
-    "tech_questions": [],
-    "current_question_index": 0
-}
-
-# Initialize session state using a loop
-for key, value in initial_state.items():
-    if key not in st.session_state:
-        st.session_state[key] = value
+if "stage" not in st.session_state: st.session_state.stage = "GREETING"
+if "messages" not in st.session_state: st.session_state.messages = []
+if "candidate_data" not in st.session_state: st.session_state.candidate_data = {}
+if "manual_entry_fields" not in st.session_state:
+    st.session_state.manual_entry_fields = [ "Full Name", "Email Address", "Years of Experience", "Current Location", "Tech Stack" ]
+if "current_field_index" not in st.session_state: st.session_state.current_field_index = 0
+if "tech_questions" not in st.session_state: st.session_state.tech_questions = []
+if "current_question_index" not in st.session_state: st.session_state.current_question_index = 0
 
 # --- Helper Functions ---
 def display_chat():
@@ -194,9 +179,4 @@ if st.session_state.stage == "CONCLUDED":
     if not st.session_state.messages or "That concludes the technical screening" not in st.session_state.messages[-1].get('content', ''):
         add_message("assistant", "That concludes the technical screening. Thank you for your time! A recruiter will review your information and be in touch soon.")
         st.balloons()
-    st.text_area(
-        "Screening complete",
-        value="The screening is complete. You may now close the window.",
-        disabled=True,
-        label_visibility="collapsed"
-    )
+    st.text_area("The screening is complete. You may now close the window.", disabled=True, height=150)
