@@ -9,9 +9,9 @@ import fitz  # PyMuPDF
 # --- Configuration and Initialization ---
 
 st.set_page_config(page_title="TalentScout Assistant", page_icon="🤖", layout="centered")
-
+api_key="AIzaSyBhSnGybUEKQYmaP_VEBjc3kaRHl3sPOHk"
 try:
-    genai.configure(api_key="AIzaSyA1lwLeu7XcgP0ulV6U4yzoptscxu7pU-I")
+    genai.configure(api_key)
 except (KeyError, AttributeError):
     st.error("🚨 **Error:** Gemini API Key not found. Please create a `.streamlit/secrets.toml` file.", icon="🔑")
     st.stop()
