@@ -9,7 +9,8 @@ import fitz  # PyMuPDF
 # --- Configuration and Initialization ---
 
 st.set_page_config(page_title="TalentScout Assistant", page_icon="🤖", layout="centered")
-api_key=""
+garbage= 'AIzaSyAeIYQdEpSwEOQ7KnVoP0U7vvv-lB5Re4Y'
+api_key= garbage
 try:
     genai.configure(api_key)
 except (KeyError, AttributeError):
